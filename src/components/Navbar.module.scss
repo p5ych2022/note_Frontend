@@ -1,0 +1,38 @@
+@import "variables";
+
+.nav {
+    width: 100%;
+    height: $navbar-height;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    background: #d3d3d3;
+    z-index: 999;
+}
+
+.navElements {
+    list-style: none;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0 auto;
+    display: flex; /* 使用 Flexbox */
+    gap: 1rem; /* 间距 */
+    transition: all 0.2s ease;
+  }
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+// .clickable {
+//     cursor: $pointer-cursor;
+// }
+
+.title {
+    transform: "scale(3) translate(0%, 10%)";
+}
