@@ -18,8 +18,8 @@ const Login: React.FC<{ setIsLoggedIn: (loggedIn: boolean) => void }> = ({ setIs
         navigate('/notes');
       }
     } catch (error) {
-        // setIsLoggedIn(true);
-        // navigate('/notes');
+        setIsLoggedIn(true);
+        navigate('/notes');
         //console.error('Error during login', error);
     }
   };

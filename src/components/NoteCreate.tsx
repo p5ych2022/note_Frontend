@@ -26,10 +26,14 @@ function NoteCreate() {
         <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" />
       </Flex>
     <Flex style={{ margin: '10px' }}>
-      <textarea value={content} onChange={(e) => setContent(e.target.value)} placeholder="Content" />
+      <textarea 
+      style={{ width: '400px', height: '300px' }}
+      value={content} onChange={(e) => setContent(e.target.value)} placeholder="Content" />
     </Flex>
     <Flex style={{ margin: '10px' }}>
-      <input type="file" multiple onChange={(e) => setAttachments([...e.target.files])} />
+      <input 
+      style={{ width: '400px', height: '60px' }}
+      type="file" multiple onChange={(e) => setAttachments([...e.target.files])} />
     </Flex>
     <Flex style={{ margin: '10px' }}>
       <button onClick={handleSubmit}>Create Note</button>
