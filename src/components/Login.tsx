@@ -11,17 +11,21 @@ const Login: React.FC<{ setIsLoggedIn: (loggedIn: boolean) => void }> = ({ setIs
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/users/login', { username, password });
-      if (response.data.success) {
-        // Redirect to dashboard
+      const response = await axios.post('/api/user/login', { username, password });
+      if (response.data.code === 200) {
+        // Redirect to dashboar
+        alert('Login Successful');
         setIsLoggedIn(true);
         navigate('/notes');
       }
+      else {
+        alert('Login Failed');
+      }
     } catch (error) {
-        setIsLoggedIn(true);
-        navigate('/notes');
-        //console.error('Error during login', error);
+       
+        console.error('Error during login', error);
     }
+
   };
 
   return (
