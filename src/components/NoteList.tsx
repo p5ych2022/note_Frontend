@@ -10,7 +10,9 @@ function NoteList() {
     const fetchNotes = async () => {
       try {
         const response = await axios.get('/api/notes/list');
-        setNotes(response.data);
+        if (response.data && response.data.status === 200 && response.data.data) {
+          setNotes(response.data.data.notes); 
+        }
       } catch (error) {
         console.error('Error fetching notes', error);
       }

@@ -16,6 +16,7 @@ const Login: React.FC<{ setIsLoggedIn: (loggedIn: boolean) => void }> = ({ setIs
         // Redirect to dashboar
         alert('Login Successful');
         setIsLoggedIn(true);
+        localStorage.setItem('jwt', response.data.token);
         navigate('/notes');
       }
       else {
