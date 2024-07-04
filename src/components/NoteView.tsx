@@ -6,14 +6,24 @@ import { Flex } from './Flex.tsx';
 function NoteView() {
   const { id } = useParams();
   const [note, setNote] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchNote = async () => {
       try {
-        const response = await axios.get(`/api/note/view/${id}`);
-        setNote(response.data);
+        
+
+        const token = localStorage.getItem('token');
+        if (!token) {
+          alert('You must be logged in to view this note');
+          return; // 这里可以添加跳转到登录页面的逻辑
+        }
+
+        const response = await axios.get(`/api/note/${id}`);
+        setNote(response.data.data);
       } catch (error) {
         console.error('Error fetching note', error.message);
+        alert('Error fetching note: ' + (error.response?.data?.message || error.message));
       }
     };
     fetchNote();
@@ -22,22 +32,19 @@ function NoteView() {
 
   return (
     <Flex preset="centered" style={{ flexDirection: 'column' }}>
-      {note ? (
+    {note ? (
       <Flex style={{ flexDirection: 'column', margin: '10px' }}>
         <h1>{note.title}</h1>
         <p>{note.content}</p>
-        <Flex style={{ flexDirection: 'column' }}>
-          {note.attachments.map((attachment) => (
-          <Flex key={attachment} style={{ margin: '5px' }}>
-            {attachment}
-          </Flex>
-        ))}
-        </Flex>
+        {/* 如果有附件，显示附件链接 */}
+        {note.attachmentID && (
+          <a href={`/api/attachment/${note.attachmentID}`}>Download Attachment</a>
+        )}
       </Flex>
-      ) : (
-        <Flex>Loading...</Flex>
-      )}
-    </Flex>
+    ) : (
+      <Flex>No note found.</Flex>
+    )}
+  </Flex>
   );
 };
 

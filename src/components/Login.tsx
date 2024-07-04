@@ -9,22 +9,28 @@ const Login: React.FC<{ setIsLoggedIn: (loggedIn: boolean) => void }> = ({ setIs
     const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
+    
+    const payload = {
+      username: username,
+      password: password
+    };
+
     e.preventDefault();
     try {
-      const response = await axios.post('/api/user/login', { username, password });
-      if (response.data.code === 200) {
+      const response = await axios.post('/api/login', payload);
+      if (response.status === 200) {
         // Redirect to dashboar
         alert('Login Successful');
         setIsLoggedIn(true);
-        localStorage.setItem('jwt', response.data.token);
+        localStorage.setItem('token', response.data.data.token);
         navigate('/notes');
       }
       else {
         alert('Login Failed');
       }
     } catch (error) {
-       
-        console.error('Error during login', error);
+      console.error('Error during login', error);
+      alert('Login Failed');
     }
 
   };

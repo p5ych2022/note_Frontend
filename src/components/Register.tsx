@@ -4,16 +4,22 @@ import { useNavigate } from 'react-router-dom';
 import { Flex } from "./Flex.tsx";
 
 const Register: React.FC = () => {
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const payload = {
+      username: username,
+      password: password
+    };
+
     try {
-        const response = await axios.post('/api/user/register', { username, password });
-        if (response.data.code === 200) {
+        const response = await axios.post('/api/register', payload);
+        if (response.status === 200) {
             alert('Registration Successful');
             navigate('/login');
         }
@@ -22,6 +28,7 @@ const Register: React.FC = () => {
       }
     } catch (error) {
         console.error('Error during registration',error.response?.data || error.message);
+        alert('Registration Failed');
     }
 
 
