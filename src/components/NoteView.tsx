@@ -56,8 +56,8 @@ function NoteView() {
 
         
         {note.attachmentID && (
-          <a href={`/api/attachment/${note.attachmentID}`}>Download Attachment</a>
-        )}
+  <button onClick={() => downloadAttachment(note.attachmentID)}>Download Attachment</button>
+)}
       </Flex>
     ) : (
       <Flex>No note found.</Flex>
@@ -65,5 +65,26 @@ function NoteView() {
   </Flex>
   );
 };
+
+function downloadAttachment(attachmentID) {
+  const token = localStorage.getItem('token');
+  axios.get(`/api/attachment/${attachmentID}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+    responseType: 'blob'  // Important for handling binary data files
+  })
+  .then(response => {
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const name = response.headers['content-disposition'].split('filename=')[1];
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', name);  // Optionally set a filename
+    document.body.appendChild(link);
+    link.click();
+    link.parentNode.removeChild(link);
+  })
+  .catch(error => console.error('Download error', error));
+}
 
 export default NoteView;
