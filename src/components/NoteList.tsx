@@ -43,7 +43,7 @@ function NoteList() {
       <ul>
         {notes.map((note) => (
             <Flex key={note.id} style={{margin:"5px"}}>
-                <Link to={`/note/view/${note.id}`}>{note.id}</Link>
+                <Link to={`/note/view/${note.id}`}>{note.title}</Link>
             </Flex>
         ))}
       </ul>
