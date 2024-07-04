@@ -14,14 +14,13 @@ function NoteCreate() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
+    // setIsSubmitting(true);
 
     const token = localStorage.getItem('token');
 
     if (!token) {
       alert('You must be logged in to create a note');
       navigate('/login');
-      setIsSubmitting(false);
       return;
     }
 

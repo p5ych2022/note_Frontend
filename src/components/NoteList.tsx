@@ -24,10 +24,6 @@ function NoteList() {
         const response = await axios.get('/api/note/list', config);
         if (response.status === 200 && response.data.status === 'ok') {
           setNotes(response.data.data); 
-          alert('ID '+response.data.data.map((note) => note.title));
-          //alert('content '+response.data.data.content);
-          //alert('attachmentID '+response.data.data.attachmentID);
-          //alert('ID '+response.data.data.ID);
         }
       } catch (error) {
         if (error.response && error.response.status === 401) {
@@ -46,8 +42,8 @@ function NoteList() {
       <h1>Your Notes</h1>
       <ul>
         {notes.map((note) => (
-            <Flex key={note.ID} style={{margin:"5px"}}>
-                <Link to={`/note/view/${note.ID}`}>{note.title}</Link>
+            <Flex key={note.id} style={{margin:"5px"}}>
+                <Link to={`/note/view/${note.id}`}>{note.id}</Link>
             </Flex>
         ))}
       </ul>

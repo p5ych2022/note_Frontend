@@ -30,7 +30,7 @@ const Login: React.FC<{ setIsLoggedIn: (loggedIn: boolean) => void }> = ({ setIs
       }
     } catch (error) {
       console.error('Error during login', error);
-      alert('Login Failed');
+      alert('Login Failed: '+ (error.response?.data?.message || error.message));
     }
 
   };
